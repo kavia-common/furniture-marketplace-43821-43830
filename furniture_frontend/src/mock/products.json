@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Oceanic Blue Sofa",
+    "description": "A stylish, modern sofa with plush blue fabric and wooden legs.",
+    "price": 799.99,
+    "image": "/assets/sofa-blue.jpg",
+    "category": "Sofas"
+  },
+  {
+    "id": 2,
+    "name": "Amber Oak Coffee Table",
+    "description": "Minimalist coffee table made from sustainable oak with an amber finish.",
+    "price": 219.95,
+    "image": "/assets/coffee-table-amber.jpg",
+    "category": "Tables"
+  },
+  {
+    "id": 3,
+    "name": "Coastal Dining Chair",
+    "description": "Set of 2 ergonomic dining chairs with curved back and soft touch fabric.",
+    "price": 139.5,
+    "image": "/assets/dining-chair.jpg",
+    "category": "Chairs"
+  },
+  {
+    "id": 4,
+    "name": "Lounge Accent Armchair",
+    "description": "Contemporary armchair, perfect for living room or study. Rounded profile.",
+    "price": 354,
+    "image": "/assets/armchair.jpg",
+    "category": "Chairs"
+  },
+  {
+    "id": 5,
+    "name": "Nightstand Pro",
+    "description": "Sleek single-drawer nightstand with soft-close hardware and felt lining.",
+    "price": 165,
+    "image": "/assets/nightstand.jpg",
+    "category": "Bedroom"
+  }
+]

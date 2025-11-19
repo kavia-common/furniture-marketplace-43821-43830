@@ -1,5 +1,16 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## 👩‍💻 Mock Product Data Mode
+
+This frontend is configured to serve product listings and product detail pages directly from local mock data by default.
+
+**To switch between mock data and backend API:**
+- Set the environment variable `NEXT_PUBLIC_USE_MOCK` to `"false"` (or `"0"`) in your `.env` to use the live backend.
+- When unset or set to `"true"`, product data comes from `src/mock/products.json` via the abstraction in `src/lib/api.ts`.
+- Cart and auth features continue to use the backend API.
+
+**Product Mock Mode is on by default!**
+
 ## Getting Started
 
 First, run the development server:

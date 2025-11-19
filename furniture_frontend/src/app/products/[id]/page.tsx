@@ -1,54 +1,36 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useCart } from "@/lib";
+import { fetchProductById, Product } from "../../../lib/api";
 import Link from "next/link";
+import { useCart } from "@/lib";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "";
-
-interface Product {
-  id: number | string;
-  name: string;
-  description: string;
-  price: number;
-  image?: string;
-  // Add other fields as needed
-}
-
-export default function ProductDetailPage({ params }) {
+// Do not annotate the props argument (Next.js will provide params)
+export default function ProductDetailPage(props) {
   const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Destructure id from props.params with runtime check
+  const id = props?.params?.id || "";
+
   useEffect(() => {
     let ignore = false;
-    async function fetchData() {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch(
-          `${API_BASE}/api/products/${params.id}/`,
-          { cache: "no-store" }
-        );
-        if (!res.ok) {
-          throw new Error(`Product not found`);
-        }
-        const data = await res.json();
-        if (!ignore) setProduct(data);
-      } catch (err) {
-        const errorMsg =
-          typeof err === "object" && err !== null && "message" in err
-            ? (err as { message?: string }).message || "Failed to fetch product."
-            : "Failed to fetch product.";
-        if (!ignore) setError(errorMsg);
-      } finally {
+    setLoading(true);
+    setError(null);
+    fetchProductById(id)
+      .then((item) => {
+        if (!ignore) setProduct(item);
+      })
+      .catch((err) => {
+        if (!ignore) setError(err.message || "Failed to fetch product.");
+      })
+      .finally(() => {
         if (!ignore) setLoading(false);
-      }
-    }
-    fetchData();
+      });
     return () => { ignore = true; };
-  }, [params.id]);
+  }, [id]);
 
   if (loading) {
     return (
@@ -68,7 +50,13 @@ export default function ProductDetailPage({ params }) {
       </div>
     );
   }
-  if (!product) return null;
+  if (!product) {
+    return (
+      <div className="flex items-center justify-center h-64 text-gray-500">
+        Product not found.
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-3xl mx-auto my-10 p-8 rounded-xl shadow-lg bg-white flex flex-col md:flex-row gap-8"
@@ -76,7 +64,6 @@ export default function ProductDetailPage({ params }) {
          >
       <div className="md:w-1/2 flex items-center justify-center">
         {product.image ? (
-          // Use next/image in a real build for optimization
           <img
             src={product.image}
             alt={product.name}
