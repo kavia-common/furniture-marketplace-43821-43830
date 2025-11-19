@@ -1,0 +1,40 @@
+:root {
+  --color-primary: #2563EB;       /* Ocean Blue */
+  --color-secondary: #F59E0B;     /* Amber/Gold */
+  --color-success: #16A34A;
+  --color-danger: #EF4444;
+  --color-bg: #f9fafb;            /* Pale background */
+  --color-surface: #fff;
+  --color-text: #111827;
+
+  --gradient-main: linear-gradient(135deg, #2563eb1a 0%, #f9fafb 100%);
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --shadow-md: 0 4px 12px 0 rgba(37,99,235,0.05);
+}
+
+/* Ocean Professional utility classes */
+.bg-gradient-main {
+  background: var(--gradient-main);
+}
+.radius-md {
+  border-radius: var(--radius-md);
+}
+.radius-lg {
+  border-radius: var(--radius-lg);
+}
+.bg-surface {
+  background-color: var(--color-surface) !important;
+}
+.text-primary {
+  color: var(--color-primary) !important;
+}
+.text-secondary {
+  color: var(--color-secondary) !important;
+}
+.text-danger {
+  color: var(--color-danger) !important;
+}
+.shadow-md {
+  box-shadow: var(--shadow-md);
+}
