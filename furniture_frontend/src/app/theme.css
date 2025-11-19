@@ -1,21 +1,21 @@
 :root {
-  --color-primary: #2563EB;       /* Ocean Blue */
-  --color-secondary: #F59E0B;     /* Amber/Gold */
-  --color-success: #16A34A;
-  --color-danger: #EF4444;
-  --color-bg: #f9fafb;            /* Pale background */
-  --color-surface: #fff;
-  --color-text: #111827;
-
-  --gradient-main: linear-gradient(135deg, #2563eb1a 0%, #f9fafb 100%);
+  --color-primary: #1d4ed8;         /* Deeper blue */
+  --color-secondary: #f59e0b;       /* Amber accent */
+  --color-success: #10b981;         /* Green for success */
+  --color-error: #ef4444;           /* Red for errors */
+  --color-bg: #f3f4f6;              /* Muted app background */
+  --color-surface: #ffffff;         /* Card/surface background */
+  --color-text: #0f172a;            /* Default text */
+  --gradient-start: #2563eb1a;      /* Primary transparent for gradients */
+  --gradient-end: #f3f4f6;          /* App bg for gradients */
   --radius-md: 0.75rem;
   --radius-lg: 1.25rem;
-  --shadow-md: 0 4px 12px 0 rgba(37,99,235,0.05);
+
+  --shadow-md: 0 4px 12px 0 rgba(29,78,216,0.07);
 }
 
-/* Ocean Professional utility classes */
-.bg-gradient-main {
-  background: var(--gradient-main);
+.bg-gradient-main, .bg-gradient-accent {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
 }
 .radius-md {
   border-radius: var(--radius-md);
@@ -32,8 +32,11 @@
 .text-secondary {
   color: var(--color-secondary) !important;
 }
-.text-danger {
-  color: var(--color-danger) !important;
+.text-success {
+  color: var(--color-success) !important;
+}
+.text-error, .text-danger {
+  color: var(--color-error) !important;
 }
 .shadow-md {
   box-shadow: var(--shadow-md);

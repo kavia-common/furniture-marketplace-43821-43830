@@ -35,35 +35,60 @@ export const ProductCard = ({
       : product.description;
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-4 flex flex-col h-full transition hover:shadow-lg border border-blue-50">
+    <div
+      className="card mb-4 flex flex-col h-full" // card picks up style from globals.css
+      style={{
+        background: "var(--color-surface)",
+        color: "var(--color-text)",
+        border: "1.5px solid #e0e7ef",
+      }}
+    >
       <Link href={`/products/${product.id}`} className="flex flex-col gap-2 group">
-        <div className="aspect-video rounded-lg overflow-hidden bg-gradient-to-tr from-blue-500/10 to-gray-50 flex items-center justify-center">
+        <div
+          className="aspect-video rounded-lg overflow-hidden flex items-center justify-center"
+          style={{
+            background:
+              "linear-gradient(90deg, var(--gradient-start), var(--gradient-end))",
+          }}
+        >
           {product.image ? (
             <img
               src={product.image}
               alt={product.title}
               className="object-cover w-full h-full group-hover:scale-105 transition"
               loading="lazy"
-              style={{ background: "#f9fafb" }}
+              style={{ background: "var(--gradient-end)" }}
             />
           ) : (
-            <span className="text-4xl text-blue-300">
+            <span className="text-4xl" style={{ color: "var(--color-primary)" }}>
               🛑
             </span>
           )}
         </div>
-        <h2 className="text-lg font-semibold text-blue-900 truncate group-hover:underline">
+        <h2
+          className="text-lg font-semibold truncate group-hover:underline"
+          style={{ color: "var(--color-primary)" }}
+        >
           {renderTitle()}
         </h2>
       </Link>
-      <div className="my-1 text-[0.97rem] text-gray-500 min-h-[2.2em]">
+      <div
+        className="my-1 text-[0.97rem] min-h-[2.2em]"
+        style={{ color: "#64748b" }}
+      >
         {renderDescription()}
       </div>
       <div className="flex items-center justify-between mt-2">
-        <span className="text-xl font-bold text-yellow-600">${product.price}</span>
+        <span
+          className="text-xl font-bold"
+          style={{ color: "var(--color-secondary)" }}
+        >
+          ${product.price}
+        </span>
         <Link
           href={`/products/${product.id}`}
-          className="text-sm text-blue-600 hover:text-blue-800 underline"
+          className="text-sm underline"
+          style={{ color: "var(--color-primary)" }}
         >
           View
         </Link>
@@ -78,7 +103,12 @@ export const ProductCard = ({
             image: product.image,
           })
         }
-        className="mt-3 py-2 px-4 w-full bg-blue-600 text-white rounded-lg font-medium shadow hover:bg-blue-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+        className="mt-3 py-2 px-4 w-full font-medium shadow transition-colors"
+        style={{
+          background: "var(--color-primary)",
+          color: "#fff",
+          borderRadius: "0.5rem",
+        }}
       >
         Add to Cart
       </button>

@@ -6,26 +6,52 @@ export const Header = () => {
   const { cartCount, toggleCart } = useCart();
 
   return (
-    <header className="w-full sticky top-0 z-20 shadow-md bg-surface bg-gradient-main">
+    <header
+      className="w-full sticky top-0 z-20 shadow-md bg-surface bg-gradient-main"
+      style={{ borderBottom: "2px solid var(--color-primary)" }}
+    >
       <nav className="max-w-6xl mx-auto flex items-center justify-between p-4">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-extrabold text-primary tracking-tight">
+          <span
+            className="text-xl font-extrabold tracking-tight"
+            style={{ color: "var(--color-primary)" }}
+          >
             🪑 FurniMarket
           </span>
         </Link>
         <div className="flex items-center gap-4">
-          <Link href="/products" className="text-primary font-medium hover:underline">
+          <Link
+            href="/products"
+            className="font-medium hover:underline"
+            style={{ color: "var(--color-primary)" }}
+          >
             Products
           </Link>
-          <Link href="/cart" className="relative text-primary font-medium" onClick={toggleCart}>
+          <Link
+            href="/cart"
+            className="relative font-medium"
+            style={{ color: "var(--color-primary)" }}
+            onClick={toggleCart}
+          >
             <span>Cart</span>
             {cartCount > 0 && (
-              <span className="absolute -top-2 -right-3 bg-secondary text-white rounded-full px-2 text-xs">
+              <span
+                className="absolute -top-2 -right-3 px-2 text-xs"
+                style={{
+                  background: "var(--color-secondary)",
+                  color: "#fff",
+                  borderRadius: "9999px",
+                }}
+              >
                 {cartCount}
               </span>
             )}
           </Link>
-          <Link href="/auth/login" className="text-secondary font-semibold hover:underline">
+          <Link
+            href="/auth/login"
+            className="font-semibold hover:underline"
+            style={{ color: "var(--color-secondary)" }}
+          >
             Login
           </Link>
         </div>

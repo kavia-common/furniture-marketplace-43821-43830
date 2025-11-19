@@ -15,7 +15,9 @@ export default function LogoutPage() {
     <>
       <Header />
       <main className="flex justify-center items-center min-h-[60vh]">
-        <div className="text-lg text-primary">Logging out...</div>
+        <div className="text-lg" style={{ color: "var(--color-primary)", fontWeight: 600 }}>
+          Logging out...
+        </div>
       </main>
     </>
   );
