@@ -1,9 +1,12 @@
 "use client";
 import Link from "next/link";
 import { useCart } from "@/lib/useCart";
+import { useWishlist } from "../lib/useWishlist";
+import { BsHeart } from "react-icons/bs";
 
 export const Header = () => {
   const { cartCount, toggleCart } = useCart();
+  const { count: wishlistCount } = useWishlist();
 
   return (
     <header
@@ -16,7 +19,7 @@ export const Header = () => {
             className="text-xl font-extrabold tracking-tight"
             style={{ color: "var(--color-primary)" }}
           >
-            🪑 FurniMarket
+            🛑 FurniMarket
           </span>
         </Link>
         <div className="flex items-center gap-4">
@@ -26,6 +29,27 @@ export const Header = () => {
             style={{ color: "var(--color-primary)" }}
           >
             Products
+          </Link>
+          <Link
+            href="/wishlist"
+            className="relative font-medium flex items-center"
+            aria-label="Wishlist"
+            style={{ color: "var(--color-secondary)", marginRight: "-4px" }}
+          >
+            <BsHeart size={23} className="mr-1" />
+            <span>Wishlist</span>
+            {wishlistCount > 0 && (
+              <span
+                className="absolute -top-2 -right-3 px-2 text-xs"
+                style={{
+                  background: "var(--color-primary)",
+                  color: "#fff",
+                  borderRadius: "9999px",
+                }}
+              >
+                {wishlistCount}
+              </span>
+            )}
           </Link>
           <Link
             href="/cart"
@@ -59,3 +83,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;
