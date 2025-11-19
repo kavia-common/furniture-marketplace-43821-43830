@@ -1,6 +1,9 @@
 import { Header } from "@/components/Header";
-import { CartSidebar } from "@/components/CartSidebar";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+// Dynamically import CartSidebar so it's client-only and avoids server-side React hook error
+const CartSidebar = dynamic(() => import("@/components/CartSidebar"), { ssr: false });
 
 export default function Home() {
   return (
