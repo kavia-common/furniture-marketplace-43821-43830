@@ -5,8 +5,7 @@ import { fetchProductById, Product } from "../../../lib/api";
 import Link from "next/link";
 import { useCart } from "@/lib";
 
-// Do not annotate the props argument (Next.js will provide params)
-export default function ProductDetailPage(props) {
+export default function ProductDetailPage(props: any) {
   const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);

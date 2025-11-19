@@ -13,13 +13,29 @@ export type Product = {
 
 type Props = {
   product: Product;
+  highlightTerm?: string;
+  getHighlightedText?: (text: string, highlight: string) => React.ReactNode;
 };
 
-export const ProductCard = ({ product }: Props) => {
+export const ProductCard = ({
+  product,
+  highlightTerm = "",
+  getHighlightedText,
+}: Props) => {
   const { addToCart } = useCart();
 
+  const renderTitle = () =>
+    highlightTerm && getHighlightedText
+      ? getHighlightedText(product.title, highlightTerm)
+      : product.title;
+
+  const renderDescription = () =>
+    product.description && highlightTerm && getHighlightedText
+      ? getHighlightedText(product.description, highlightTerm)
+      : product.description;
+
   return (
-    <div className="bg-white rounded-xl shadow-md p-4 flex flex-col h-full transition hover:shadow-lg">
+    <div className="bg-white rounded-xl shadow-md p-4 flex flex-col h-full transition hover:shadow-lg border border-blue-50">
       <Link href={`/products/${product.id}`} className="flex flex-col gap-2 group">
         <div className="aspect-video rounded-lg overflow-hidden bg-gradient-to-tr from-blue-500/10 to-gray-50 flex items-center justify-center">
           {product.image ? (
@@ -28,15 +44,21 @@ export const ProductCard = ({ product }: Props) => {
               alt={product.title}
               className="object-cover w-full h-full group-hover:scale-105 transition"
               loading="lazy"
+              style={{ background: "#f9fafb" }}
             />
           ) : (
-            <span className="text-4xl text-blue-300">🪑</span>
+            <span className="text-4xl text-blue-300">
+              🛑
+            </span>
           )}
         </div>
         <h2 className="text-lg font-semibold text-blue-900 truncate group-hover:underline">
-          {product.title}
+          {renderTitle()}
         </h2>
       </Link>
+      <div className="my-1 text-[0.97rem] text-gray-500 min-h-[2.2em]">
+        {renderDescription()}
+      </div>
       <div className="flex items-center justify-between mt-2">
         <span className="text-xl font-bold text-yellow-600">${product.price}</span>
         <Link
