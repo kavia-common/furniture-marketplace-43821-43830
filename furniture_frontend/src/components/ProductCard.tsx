@@ -1,114 +1,76 @@
 "use client";
-import Link from "next/link";
-import React from "react";
-import { useCart } from "@/lib";
+import React, { useState } from "react";
+import { useCart, formatPrice } from "../lib/useCart";
 
-export type Product = {
-  id: number | string;
-  title: string;
+type Product = {
+  id: string;
+  name: string;
   price: number;
-  description?: string;
-  image?: string | null;
+  image: string;
 };
 
-type Props = {
-  product: Product;
-  highlightTerm?: string;
-  getHighlightedText?: (text: string, highlight: string) => React.ReactNode;
-};
-
-export const ProductCard = ({
-  product,
-  highlightTerm = "",
-  getHighlightedText,
-}: Props) => {
+/**
+ * ProductCard displays furniture info and allows quantity selection and add-to-cart,
+ * styled per Ocean Professional theme.
+ */
+const ProductCard = ({ product }: { product: Product }) => {
   const { addToCart } = useCart();
+  const [qty, setQty] = useState(1);
 
-  const renderTitle = () =>
-    highlightTerm && getHighlightedText
-      ? getHighlightedText(product.title, highlightTerm)
-      : product.title;
-
-  const renderDescription = () =>
-    product.description && highlightTerm && getHighlightedText
-      ? getHighlightedText(product.description, highlightTerm)
-      : product.description;
-
+  // Price formatting and increment/decrement for inline UX
   return (
-    <div
-      className="card mb-4 flex flex-col h-full" // card picks up style from globals.css
-      style={{
-        background: "var(--color-surface)",
-        color: "var(--color-text)",
-        border: "1.5px solid #e0e7ef",
-      }}
-    >
-      <Link href={`/products/${product.id}`} className="flex flex-col gap-2 group">
-        <div
-          className="aspect-video rounded-lg overflow-hidden flex items-center justify-center"
-          style={{
-            background:
-              "linear-gradient(90deg, var(--gradient-start), var(--gradient-end))",
-          }}
-        >
-          {product.image ? (
-            <img
-              src={product.image}
-              alt={product.title}
-              className="object-cover w-full h-full group-hover:scale-105 transition"
-              loading="lazy"
-              style={{ background: "var(--gradient-end)" }}
-            />
-          ) : (
-            <span className="text-4xl" style={{ color: "var(--color-primary)" }}>
-              🛑
-            </span>
-          )}
-        </div>
-        <h2
-          className="text-lg font-semibold truncate group-hover:underline"
-          style={{ color: "var(--color-primary)" }}
-        >
-          {renderTitle()}
-        </h2>
-      </Link>
-      <div
-        className="my-1 text-[0.97rem] min-h-[2.2em]"
-        style={{ color: "#64748b" }}
-      >
-        {renderDescription()}
+    <div className="bg-white rounded-xl shadow p-4 flex flex-col hover:shadow-lg border border-blue-100 transition">
+      <img
+        src={product.image}
+        alt={product.name}
+        className="w-full h-48 object-cover rounded mb-4 border border-blue-50 shadow"
+        style={{ background: "#e0e7ef" }}
+      />
+      <div className="font-semibold mb-1 text-blue-900 truncate">{product.name}</div>
+      <div className="flex items-baseline mb-3 space-x-2">
+        <span className="text-blue-700 font-bold text-lg">{formatPrice(product.price)}</span>
       </div>
-      <div className="flex items-center justify-between mt-2">
-        <span
-          className="text-xl font-bold"
-          style={{ color: "var(--color-secondary)" }}
+      <div className="flex items-center gap-2 mb-3">
+        <button
+          aria-label="Decrease quantity"
+          onClick={() => setQty((q) => Math.max(1, q - 1))}
+          disabled={qty <= 1}
+          className={`w-7 h-7 rounded-full border border-blue-200 flex items-center justify-center transition-colors
+            ${qty <= 1
+              ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+              : "bg-blue-100 text-blue-600 hover:bg-blue-200"
+            }`}
         >
-          ${product.price}
-        </span>
-        <Link
-          href={`/products/${product.id}`}
-          className="text-sm underline"
-          style={{ color: "var(--color-primary)" }}
+          –
+        </button>
+        <input
+          type="number"
+          className="w-10 text-center rounded border border-blue-200 text-blue-700 font-bold focus:ring-amber-400"
+          value={qty}
+          min={1}
+          max={100}
+          aria-label="Quantity"
+          onChange={e => {
+            const v = Math.max(1, Math.floor(Number(e.target.value) || 1));
+            setQty(v);
+          }}
+        />
+        <button
+          aria-label="Increase quantity"
+          onClick={() => setQty((q) => Math.min(100, q + 1))}
+          className="w-7 h-7 rounded-full bg-blue-500 text-white flex items-center justify-center border border-blue-200 hover:bg-blue-600 transition-colors"
         >
-          View
-        </Link>
+          +
+        </button>
       </div>
       <button
         onClick={() =>
-          addToCart({
-            ...product,
-            name: product.title,
-            price: product.price,
-            description: product.description,
-            image: product.image,
-          })
+          addToCart(
+            { ...product, quantity: qty },
+            qty
+          )
         }
-        className="mt-3 py-2 px-4 w-full font-medium shadow transition-colors"
-        style={{
-          background: "var(--color-primary)",
-          color: "#fff",
-          borderRadius: "0.5rem",
-        }}
+        className="mt-auto bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 font-semibold transition"
       >
         Add to Cart
       </button>
@@ -116,14 +78,4 @@ export const ProductCard = ({
   );
 };
 
-type GridProps = {
-  products: Product[];
-};
-
-export const ProductGrid = ({ products }: GridProps) => (
-  <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-    {products.map((p) => (
-      <ProductCard key={p.id} product={p} />
-    ))}
-  </div>
-);
+export default ProductCard;

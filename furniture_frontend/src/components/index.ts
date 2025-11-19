@@ -1,3 +1,5 @@
 export * from "./Header";
-export * from "./ProductCard";
-export * from "./CartSidebar";
+import ProductCardDefault from "./ProductCard";
+import CartSidebarDefault from "./CartSidebar";
+export { ProductCardDefault as ProductCard };
+export { CartSidebarDefault as CartSidebar };
