@@ -1,19 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { useCart, formatPrice } from "../lib/useCart";
-
-type Product = {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  image: string;
-};
+import type { Product } from "../lib/api";
 
 /**
  * Displays product detail view with full product info, quantity selector,
  * "Add to Cart" button, per Ocean Professional design.
  */
+// PUBLIC_INTERFACE
 const ProductDetailClient = ({ product }: { product: Product }) => {
   const { addToCart } = useCart();
   const [qty, setQty] = useState(1);

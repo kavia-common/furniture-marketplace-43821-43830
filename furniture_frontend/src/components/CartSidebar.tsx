@@ -6,7 +6,11 @@ import { useCart, formatPrice } from "../lib/useCart";
  * CartSidebar displays the current cart items with full controls - increment, decrement,
  * per-item subtotal, cart total, removal, and Ocean Professional theme styling.
  */
-const CartSidebar = () => {
+/**
+ * PUBLIC_INTERFACE
+ * Named export for CartSidebar - required for named import compatibility
+ */
+export const CartSidebar = () => {
   const {
     cartItems,
     incrementItem,

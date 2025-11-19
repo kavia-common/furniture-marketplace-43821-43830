@@ -1,15 +1,13 @@
 import { Header } from "@/components/Header";
-import dynamic from "next/dynamic";
 import Link from "next/link";
+import CartSidebarClient from "@/components/CartSidebarClient";
 
-// Dynamically import CartSidebar so it's client-only and avoids server-side React hook error
-const CartSidebar = dynamic(() => import("@/components/CartSidebar"), { ssr: false });
-
+// PUBLIC_INTERFACE
 export default function Home() {
   return (
     <>
       <Header />
-      <CartSidebar />
+      <CartSidebarClient />
       <main className="flex flex-col items-center justify-center py-32 bg-bg min-h-[60vh]">
         <h1 className="text-4xl font-extrabold text-primary mb-4">
           Welcome to FurniMarket

@@ -2,8 +2,8 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { fetchProducts, Product } from "../../lib/api";
 import { Header } from "../../components/Header";
-import { CartSidebar } from "../../components/CartSidebar";
-import { ProductCard } from "../../components/ProductCard";
+import CartSidebar from "../../components/CartSidebar";
+import ProductCard from "../../components/ProductCard";
 
 /**
  * Escape RegExp special characters for highlighting

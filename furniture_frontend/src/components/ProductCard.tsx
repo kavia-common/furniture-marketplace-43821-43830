@@ -13,7 +13,11 @@ type Product = {
  * ProductCard displays furniture info and allows quantity selection and add-to-cart,
  * styled per Ocean Professional theme.
  */
-const ProductCard = ({ product }: { product: Product }) => {
+/**
+ * PUBLIC_INTERFACE
+ * Named export for ProductCard - required for named import compatibility
+ */
+export const ProductCard = ({ product }: { product: Product }) => {
   const { addToCart } = useCart();
   const [qty, setQty] = useState(1);
 
